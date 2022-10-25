@@ -8,21 +8,37 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="wfA-bn-6qU">
+        <!--Category List Table View Controller-->
+        <scene sceneID="NZZ-FH-gVs">
             <objects>
-                <viewController id="war-oi-792" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tD2-sl-agt">
+                <tableViewController id="tQA-Ic-w5k" customClass="CategoryListTableViewController" customModule="GroceyList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="6rg-gs-Kae">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="R5x-96-0ex"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="FhO-lX-WjG"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ipk-ia-Mgp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="category-cell" id="j1k-2t-vkH">
+                                <rect key="frame" x="0.0" y="50" width="390" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j1k-2t-vkH" id="Bhr-hT-svU">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="tQA-Ic-w5k" id="gJ8-fL-EOk"/>
+                            <outlet property="delegate" destination="tQA-Ic-w5k" id="ybk-aM-MeE"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Rmz-wS-2m2"/>
+                    <connections>
+                        <segue destination="5jk-oX-iKT" kind="show" identifier="categorylist-add" id="uGA-5w-4Cw"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ie0-QL-RWz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2397" y="70"/>
+            <point key="canvasLocation" x="2489" y="70"/>
         </scene>
         <!--Home ScreenVC-->
         <scene sceneID="4sJ-B2-0bA">
@@ -238,6 +254,62 @@
             </objects>
             <point key="canvasLocation" x="3514" y="-76"/>
         </scene>
+        <!--Add Category View Controller-->
+        <scene sceneID="Fx8-3z-cBO">
+            <objects>
+                <viewController id="5jk-oX-iKT" customClass="AddCategoryViewController" customModule="GroceyList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aFN-Hs-LdZ">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter Category Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEM-cp-0db">
+                                <rect key="frame" x="16" y="156" width="358" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter category name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DT3-Mh-Otk">
+                                <rect key="frame" x="83" y="229" width="229" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="categoryInput:" destination="zHU-bN-CRu" eventType="editingDidEnd" id="QqI-iz-o6w"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUG-bw-nHk">
+                                <rect key="frame" x="83" y="290" width="229" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add Category"/>
+                                <connections>
+                                    <action selector="addCategory:" destination="5jk-oX-iKT" eventType="touchUpInside" id="Vh2-wy-Un2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwT-Q1-DFj">
+                                <rect key="frame" x="83" y="342" width="229" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelAction:" destination="5jk-oX-iKT" eventType="touchUpInside" id="5iN-hV-MVQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="a3o-fP-4PW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="A3A-6G-4Xg"/>
+                    <connections>
+                        <outlet property="categoryInput" destination="DT3-Mh-Otk" id="XTp-qA-vu5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B2A-9d-cKD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="zHU-bN-CRu" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3515.3846153846152" y="634.83412322274876"/>
+        </scene>
         <!--Add Item View Controller-->
         <scene sceneID="7t5-fG-ncB">
             <objects>
@@ -359,7 +431,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="war-oi-792" kind="relationship" relationship="rootViewController" id="XiX-S0-dUO"/>
+                        <segue destination="tQA-Ic-w5k" kind="relationship" relationship="rootViewController" id="EU9-q2-3ra"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wIO-Pc-ZCl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
