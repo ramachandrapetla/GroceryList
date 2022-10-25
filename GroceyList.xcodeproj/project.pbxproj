@@ -17,6 +17,9 @@
 		65AD013028E5F638006BF101 /* CreateScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD012F28E5F638006BF101 /* CreateScreenVC.swift */; };
 		65AD013228E5FC6A006BF101 /* RecentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD013128E5FC6A006BF101 /* RecentListTableViewCell.swift */; };
 		65D8DE0728FFCC2900CC5D8E /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D8DE0628FFCC2900CC5D8E /* ListTableViewController.swift */; };
+		65E9B3D4290111BB0051A2E3 /* CRUDActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9B3D3290111BB0051A2E3 /* CRUDActions.swift */; };
+		65F3221729065D9F00D9FE1E /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3221629065D9F00D9FE1E /* ListItem.swift */; };
+		65F322192906E25A00D9FE1E /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F322182906E25A00D9FE1E /* AddItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		65AD012F28E5F638006BF101 /* CreateScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateScreenVC.swift; sourceTree = "<group>"; };
 		65AD013128E5FC6A006BF101 /* RecentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentListTableViewCell.swift; sourceTree = "<group>"; };
 		65D8DE0628FFCC2900CC5D8E /* ListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
+		65E9B3D3290111BB0051A2E3 /* CRUDActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUDActions.swift; sourceTree = "<group>"; };
+		65F3221629065D9F00D9FE1E /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
+		65F322182906E25A00D9FE1E /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,7 @@
 		6584DCA628DE5A06007831A4 /* GroceyList */ = {
 			isa = PBXGroup;
 			children = (
+				65E9B3D2290111710051A2E3 /* Models */,
 				6584DCBE28DE5B4C007831A4 /* ViewControllers */,
 				6584DCA728DE5A06007831A4 /* AppDelegate.swift */,
 				6584DCA928DE5A06007831A4 /* SceneDelegate.swift */,
@@ -71,7 +78,6 @@
 				6584DCB328DE5A06007831A4 /* Assets.xcassets */,
 				6584DCB528DE5A06007831A4 /* LaunchScreen.storyboard */,
 				6584DCB828DE5A06007831A4 /* Info.plist */,
-				6584DCB028DE5A06007831A4 /* GroceyList.xcdatamodeld */,
 			);
 			path = GroceyList;
 			sourceTree = "<group>";
@@ -83,8 +89,19 @@
 				65AD012F28E5F638006BF101 /* CreateScreenVC.swift */,
 				65AD013128E5FC6A006BF101 /* RecentListTableViewCell.swift */,
 				65D8DE0628FFCC2900CC5D8E /* ListTableViewController.swift */,
+				65F322182906E25A00D9FE1E /* AddItemViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		65E9B3D2290111710051A2E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6584DCB028DE5A06007831A4 /* GroceyList.xcdatamodeld */,
+				65E9B3D3290111BB0051A2E3 /* CRUDActions.swift */,
+				65F3221629065D9F00D9FE1E /* ListItem.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +178,9 @@
 				65AD013228E5FC6A006BF101 /* RecentListTableViewCell.swift in Sources */,
 				6584DCB228DE5A06007831A4 /* GroceyList.xcdatamodeld in Sources */,
 				6584DCA828DE5A06007831A4 /* AppDelegate.swift in Sources */,
+				65F3221729065D9F00D9FE1E /* ListItem.swift in Sources */,
+				65E9B3D4290111BB0051A2E3 /* CRUDActions.swift in Sources */,
+				65F322192906E25A00D9FE1E /* AddItemViewController.swift in Sources */,
 				6584DCAA28DE5A06007831A4 /* SceneDelegate.swift in Sources */,
 				65AD013028E5F638006BF101 /* CreateScreenVC.swift in Sources */,
 				6584DCC028DE5B8E007831A4 /* HomeScreenVC.swift in Sources */,

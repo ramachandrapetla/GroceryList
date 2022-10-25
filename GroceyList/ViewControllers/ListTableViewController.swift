@@ -9,11 +9,18 @@ import UIKit
 
 class ListTableViewController: UITableViewController {
 
-    var listItems = ["Eggs", "Meat", "Milk"]
+    var listItems:[[String]] = []
+    var listName = ""
+    var categorySet: [String] = []
+    var selectedRows = [Int]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "ListName"
+        self.title = listName
+        //loadListItems()
+        
+        //Creating Custon Back Button
         self.navigationItem.hidesBackButton = true
         let newBackButton = UIBarButtonItem(
             title: "<- Home",
@@ -21,33 +28,80 @@ class ListTableViewController: UITableViewController {
             target: self,
             action: #selector(back))
         self.navigationItem.leftBarButtonItem = newBackButton
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Add Item",
+            style: .plain,
+            target: self,
+            action: #selector(addItem))
     }
     
     @objc func back(sender: UIBarButtonItem) {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
+    @objc func addItem(sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "listview-to-additem", sender: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadListItems()
+    }
+    
+    func loadListItems() {
+        listItems.removeAll()
+        categorySet.removeAll()
+        print("I apperead again.. Voila!!")
+        if let ItemsArray = CRUDActions.getListItems(listName: listName) {
+            var set: Set<String> = []
+            for i in 0..<ItemsArray.count {
+                set.insert(ItemsArray[i].category)
+            }
+            categorySet = Array(set)
+            print("categories: \(categorySet)")
+            
+            for category in categorySet {
+                var categorized: [String] = []
+                for j in 0..<ItemsArray.count {
+                    if ItemsArray[j].category == category {
+                        categorized.append(ItemsArray[j].name)
+                    }
+                }
+                listItems.append(categorized)
+            }
+        }
+        print("data : \(listItems)")
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return categorySet.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return categorySet[section]
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return listItems.count
+        return listItems[section].count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "list-item", for: indexPath)
 
-        cell.textLabel?.text = listItems[indexPath.row]
-
+        //cell.textLabel?.text = listItems[indexPath.row].name
+        cell.textLabel?.text = listItems[indexPath.section][indexPath.row]
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -84,14 +138,18 @@ class ListTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+         
+        //Get the new view controller using segue.destination.
+         //Pass the selected object to the new view controller.
+        print("Preparing seque1")
+        if segue.identifier == "listview-to-additem" {
+            print("Preparing seque2")
+            if let addItemVC = segue.destination as? AddItemViewController {
+                addItemVC.listName = listName
+            }
+        }
+        
     }
-    */
 
 }
