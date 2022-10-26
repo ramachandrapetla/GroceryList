@@ -11,6 +11,8 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     @IBOutlet weak var itemName: UITextField!
     @IBOutlet weak var category: UIPickerView!
+    @IBOutlet weak var errorLabel: UILabel!
+    
     var categorySelected = "--"
     var categoryDataSource:[String] = []
     var listName = ""
@@ -29,8 +31,12 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
 
     @IBAction func addItem(_ sender: Any) {
         if let name = itemName.text {
-            CRUDActions.addItemToList(listName: listName, itemName: name, category: categorySelected)
-            self.navigationController?.popViewController(animated: true)
+            if name != "" {
+                CRUDActions.addItemToList(listName: listName, itemName: name, category: categorySelected)
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                errorLabel.text = "Item Name cannot be empty"
+            }
         }
     }
     

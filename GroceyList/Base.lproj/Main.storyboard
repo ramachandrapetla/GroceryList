@@ -193,6 +193,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IE0-6A-voT">
+                                <rect key="frame" x="16" y="445" width="358" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3FI-D7-WOI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -213,6 +220,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="2Jj-qL-YbU"/>
                     <connections>
+                        <outlet property="errorLabel" destination="IE0-6A-voT" id="NqL-6Q-nrM"/>
                         <outlet property="listName" destination="XkY-Ag-rj5" id="cKv-T1-JRy"/>
                         <segue destination="nOW-Do-VcW" kind="show" identifier="create-to-list" id="Dq0-DB-LQG"/>
                     </connections>
@@ -220,7 +228,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okb-tB-NG9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ZXX-Uk-QTU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3477" y="-891"/>
+            <point key="canvasLocation" x="3476.9230769230767" y="-891.46919431279616"/>
         </scene>
         <!--List Table View Controller-->
         <scene sceneID="PgC-sV-rZe">
@@ -352,6 +360,13 @@
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2rm-jV-Yrw">
                                 <rect key="frame" x="0.0" y="329" width="390" height="216"/>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Gn-yQ-pTv">
+                                <rect key="frame" x="37" y="648" width="322" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="upN-PM-iF0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -375,6 +390,7 @@
                     <navigationItem key="navigationItem" id="b2q-HK-8dB"/>
                     <connections>
                         <outlet property="category" destination="2rm-jV-Yrw" id="DTc-zn-P4Q"/>
+                        <outlet property="errorLabel" destination="0Gn-yQ-pTv" id="goH-em-hFE"/>
                         <outlet property="itemName" destination="xJf-Zd-7uQ" id="5Ik-Wc-qJD"/>
                     </connections>
                 </viewController>
@@ -456,6 +472,9 @@
         </systemColor>
         <systemColor name="systemPurpleColor">
             <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

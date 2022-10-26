@@ -10,6 +10,7 @@ import UIKit
 class CreateScreenVC: UIViewController {
 
     @IBOutlet weak var listName: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +19,11 @@ class CreateScreenVC: UIViewController {
     }
     
     @IBAction func createList(_ sender: Any) {
-        performSegue(withIdentifier: "create-to-list", sender: nil)
+        if listName.text != "" {
+            performSegue(withIdentifier: "create-to-list", sender: nil)
+        } else {
+            errorLabel.text = "List Name cannot be Empty"
+        }
     }
     
     @IBAction func cancel(_ sender: Any) {
