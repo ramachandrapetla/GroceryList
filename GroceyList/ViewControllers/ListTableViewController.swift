@@ -12,7 +12,7 @@ class ListTableViewController: UITableViewController {
     var listItems:[[String]] = []
     var listName = ""
     var categorySet: [String] = []
-    var selectedRows = [Int]()
+    var checkedStatus = [[Bool]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +51,7 @@ class ListTableViewController: UITableViewController {
     func loadListItems() {
         listItems.removeAll()
         categorySet.removeAll()
+        checkedStatus.removeAll()
         print("I apperead again.. Voila!!")
         if let ItemsArray = CRUDActions.getListItems(listName: listName) {
             var set: Set<String> = []
@@ -58,19 +59,24 @@ class ListTableViewController: UITableViewController {
                 set.insert(ItemsArray[i].category)
             }
             categorySet = Array(set)
+            categorySet.sort()
             print("categories: \(categorySet)")
             
             for category in categorySet {
                 var categorized: [String] = []
+                var checkImg: [Bool] = []
                 for j in 0..<ItemsArray.count {
                     if ItemsArray[j].category == category {
                         categorized.append(ItemsArray[j].name)
+                        checkImg.append(ItemsArray[j].checked)
                     }
                 }
                 listItems.append(categorized)
+                checkedStatus.append(checkImg)
             }
         }
         print("data : \(listItems)")
+        print("Checked Status: \(checkedStatus)")
         tableView.reloadData()
     }
     
@@ -89,18 +95,30 @@ class ListTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return listItems[section].count
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "list-item", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "list-item", for: indexPath) as! ListTableViewCell
 
         //cell.textLabel?.text = listItems[indexPath.row].name
-        cell.textLabel?.text = listItems[indexPath.section][indexPath.row]
+        cell.listItemName.text = listItems[indexPath.section][indexPath.row]
+        if checkedStatus[indexPath.section][indexPath.row] {
+            cell.checkMarkImage.image = UIImage(named: "checked")
+        } else {
+            cell.checkMarkImage.image = UIImage(named: "unchecked")
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let checkItem:Bool = !checkedStatus[indexPath.section][indexPath.row]
+        let itemName:String = listItems[indexPath.section][indexPath.row]
+        CRUDActions.updateItemStatus(listName: listName, itemName: itemName, checkItem: checkItem)
+        loadListItems()
     }
 
     /*

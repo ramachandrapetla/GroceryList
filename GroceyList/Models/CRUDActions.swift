@@ -40,6 +40,7 @@ class CRUDActions: NSObject {
             listMO.setValue(listName, forKeyPath: "listName")
             listMO.setValue(itemName, forKeyPath: "itemName")
             listMO.setValue(category, forKeyPath: "categoryName")
+            listMO.setValue(false, forKeyPath: "checked")
             do {
                 //Save the managed object context
                 print("Added new item to list")
@@ -89,7 +90,7 @@ class CRUDActions: NSObject {
             //Prepare the request of type NSFetchRequest  for the entity (SELECT * FROM)
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Items")
             fetchRequest.predicate = NSPredicate(format: "listName = %@", listName)
-            //fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "word", ascending: false)]
+            fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "categoryName", ascending: false)]
             do {
                 //Execute the fetch request
                 let result = try managedContext.fetch(fetchRequest)
@@ -100,7 +101,8 @@ class CRUDActions: NSObject {
                         let record = result[i] as! NSManagedObject
                         let name = record.value(forKey: "itemName") as! String
                         let category = record.value(forKey: "categoryName") as! String
-                        listItems.append(ListItem(name: name, category: category))
+                        let checked = record.value(forKey: "checked") as! Bool
+                        listItems.append(ListItem(name: name, category: category, checked: checked))
                     }
                     print("Total items available in list are : \(listItems.count)")
                     return listItems
@@ -110,6 +112,37 @@ class CRUDActions: NSObject {
             }
         }
         return nil
+    }
+    
+    //update item status
+    static func updateItemStatus(listName:String, itemName:String, checkItem:Bool) {
+        //Get the managed context context from AppDelegate
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+            //Prepare a fetch request for the record to update
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Items")
+            fetchRequest.predicate = NSPredicate(format: "listName = %@ AND itemName = %@", listName, itemName)
+            
+            do{
+                //Fetch the record to update
+                let test = try managedContext.fetch(fetchRequest)
+
+                //Update the record
+                let objectToUpdate = test[0] as! NSManagedObject
+                objectToUpdate.setValue(checkItem, forKey: "checked")
+                do{
+                    //Save the managed object context
+                    try managedContext.save()
+                }
+                catch let error as NSError {
+                    print("Could not update the record! \(error), \(error.userInfo)")
+                }
+            }
+            catch let error as NSError {
+                print("Could not find the record to update! \(error), \(error.userInfo)")
+            }
+        }
     }
     
     //Delete List

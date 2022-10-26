@@ -5,6 +5,7 @@
     </entity>
     <entity name="Items" representedClassName="Items" syncable="YES" codeGenerationType="class">
         <attribute name="categoryName" attributeType="String"/>
+        <attribute name="checked" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="itemName" attributeType="String"/>
         <attribute name="listName" attributeType="String"/>
     </entity>

@@ -19,7 +19,7 @@ class CreateScreenVC: UIViewController {
     }
     
     @IBAction func createList(_ sender: Any) {
-        if listName.text != "" {
+        if listName.text?.trimmingCharacters(in: .whitespaces) != "" {
             performSegue(withIdentifier: "create-to-list", sender: nil)
         } else {
             errorLabel.text = "List Name cannot be Empty"
