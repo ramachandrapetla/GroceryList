@@ -82,6 +82,10 @@
                                                     <color key="textColor" systemColor="opaqueSeparatorColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chevron.forward" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="yNE-bR-bUD">
+                                                    <rect key="frame" x="333" y="26" width="22" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="OVn-z1-ZlA" firstAttribute="leading" secondItem="Sog-1J-HIn" secondAttribute="leading" id="Wd7-Tu-YJ8"/>
@@ -109,7 +113,7 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grocery List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24w-Uy-FVW">
                                 <rect key="frame" x="115" y="91" width="160" height="34"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" systemColor="systemPurpleColor"/>
                                 <nil key="highlightedColor"/>
@@ -473,9 +477,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Dq0-DB-LQG"/>
+        <segue reference="AUB-ma-fw2"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="chevron.forward" catalog="system" width="97" height="128"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="note.text.badge.plus" catalog="system" width="128" height="108"/>
         <systemColor name="opaqueSeparatorColor">
