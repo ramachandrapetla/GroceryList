@@ -22,11 +22,15 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         self.category.delegate = self
         self.category.dataSource = self
-        print("List name is : \(listName)")
-        categoryDataSource = ["Dairy", "Fish", "Meat", "Vegan", "Snacks", "Miscelleneous"]
         
-        categorySelected = categoryDataSource[0]
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let categories = CRUDActions.getCategoryNames() {
+            categoryDataSource = categories
+        }
+        categorySelected = categoryDataSource[0]
     }
 
     @IBAction func addItem(_ sender: Any) {

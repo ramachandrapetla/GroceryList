@@ -9,7 +9,7 @@ import UIKit
 
 class CategoryListTableViewController: UITableViewController {
 
-    var data = ["Dairy", "Meat", "Snacks"]
+    var data = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,15 @@ class CategoryListTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let categoryList = CRUDActions.getCategoryNames() {
+            data = categoryList
+        } else {
+            data = []
+        }
+        tableView.reloadData()
     }
 
     @objc func addCategory(sender: UIBarButtonItem) {
@@ -54,6 +63,24 @@ class CategoryListTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if data[indexPath.row] == "Miscellaneous" {
+            return .none
+        }
+        return .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            
+            CRUDActions.deleteCategory(categoryName: data[indexPath.row])
+            data.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -63,17 +90,6 @@ class CategoryListTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
 
     /*
     // Override to support rearranging the table view.

@@ -10,6 +10,7 @@ import UIKit
 class AddCategoryViewController: UIViewController {
 
     @IBOutlet weak var categoryInput: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,17 @@ class AddCategoryViewController: UIViewController {
     
     
     @IBAction func addCategory(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        if let category = categoryInput.text {
+            if !category.isEmpty {
+                CRUDActions.createNewCategory(categoryName: category)
+                navigationController?.popViewController(animated: true)
+            } else {
+                errorLabel.text = "Categroy Name is Required"
+            }
+        } else {
+            errorLabel.text = "Categroy Name is Required"
+        }
+        
     }
     
     @IBAction func cancelAction(_ sender: Any) {

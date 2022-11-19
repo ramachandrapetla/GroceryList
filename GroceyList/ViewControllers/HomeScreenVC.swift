@@ -12,12 +12,11 @@ class HomeScreenVC: UIViewController {
     @IBOutlet weak var recentList: UITableView!
     
     
-    var listNames:[String] = []
+    var listData:[[String]] = []
     var selected = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadListData()
         recentList.delegate = self
         recentList.dataSource = self
         // Do any additional setup after loading the view.
@@ -28,13 +27,15 @@ class HomeScreenVC: UIViewController {
     }
     
     func loadListData() {
-        listNames.removeAll()
-        print("I apperead again.. Voila!!")
+//        listNames.removeAll()
         if let listArray = CRUDActions.getListNames() {
-            print(listArray.count)
-            for i in 0..<listArray.count {
-                listNames.append(listArray[i])
-            }
+//            print(listArray.count)
+//            for i in 0..<listArray.count {
+//                listNames.append(listArray[i])
+//            }
+            listData = listArray
+        } else {
+            listData = []
         }
         recentList.reloadData()
     }
@@ -65,13 +66,13 @@ class HomeScreenVC: UIViewController {
 
 extension HomeScreenVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listNames.count
+        return listData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = recentList.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RecentListTableViewCell
-        cell.mainLabel.text = listNames[indexPath.row]
-        cell.secondaryInfoLabel.text = "12 items"
+        cell.mainLabel.text = listData[indexPath.row][0]
+        cell.secondaryInfoLabel.text = listData[indexPath.row][1]
         return cell
     }
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -82,9 +83,9 @@ extension HomeScreenVC: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             tableView.beginUpdates()
             
-            CRUDActions.deleteList(name: listNames[indexPath.row])
-            listNames.remove(at: indexPath.row)
-            print("Index path value is: \(indexPath.row)::: count: \(listNames.count)")
+            CRUDActions.deleteList(name: listData[indexPath.row][0])
+            listData.remove(at: indexPath.row)
+            print("Index path value is: \(indexPath.row)::: count: \(listData.count)")
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
         }
@@ -96,7 +97,7 @@ extension HomeScreenVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selected = listNames[indexPath.row]
+        selected = listData[indexPath.row][0]
         performSegue(withIdentifier: "home-list", sender: nil)
     }
 }
