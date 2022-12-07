@@ -10,6 +10,8 @@ import UIKit
 class CategoryListTableViewController: UITableViewController {
 
     var data = [String]()
+    var action = ""
+    var rowSelected = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +32,27 @@ class CategoryListTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let categoryList = CRUDActions.getCategoryNames() {
-            data = categoryList
-        } else {
-            data = []
+        loadData()
+    }
+    
+    func loadData() {
+        while true {
+            if let categoryList = CRUDActions.getCategoryNames() {
+                data = categoryList
+            } else {
+                data = []
+            }
+            if data.count < 1 {
+                CRUDActions.loadInitialData()
+            } else {
+                break
+            }
         }
         tableView.reloadData()
     }
 
     @objc func addCategory(sender: UIBarButtonItem) {
+        action = "Add"
         performSegue(withIdentifier: "categorylist-add", sender: nil)
     }
     
@@ -63,57 +77,50 @@ class CategoryListTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if data[indexPath.row] == "Miscellaneous" {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if data[indexPath.row] == "Other" {
             return .none
         }
-        return .delete
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.beginUpdates()
-            
-            CRUDActions.deleteCategory(categoryName: data[indexPath.row])
-            data.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
+            self.action = "Update"
+            self.rowSelected = self.data[indexPath.row]
+            self.performSegue(withIdentifier: "categorylist-add", sender: nil)
         }
+        editAction.backgroundColor = UIColor.systemBlue
+
+
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+            CRUDActions.deleteCategory(categoryName: self.data[indexPath.row])
+            self.loadData()
+            
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+
+        return configuration
     }
     
-
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+         
+        //Get the new view controller using segue.destination.
+         //Pass the selected object to the new view controller.
+        if segue.identifier == "categorylist-add" {
+            if let addVC = segue.destination as? AddCategoryViewController {
+                addVC.action = action
+                addVC.oldCategory = rowSelected
+            }
+        }
     }
-    */
 
 }

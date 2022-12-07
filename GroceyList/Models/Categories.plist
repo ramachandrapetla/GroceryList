@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>Fruits</string>
+	<string>Vegetables</string>
+	<string>Canned Goods</string>
+	<string>Dairy</string>
+	<string>Meat</string>
+	<string>Fish &amp; Seafood</string>
+	<string>Deli</string>
+	<string>Condiments &amp; Spices</string>
+	<string>Snacks</string>
+	<string>Bread &amp; Bakery</string>
+	<string>Beverages</string>
+	<string>Baking</string>
+	<string>Frozen Foods</string>
+	<string>Personal Care</string>
+	<string>Health Care</string>
+	<string>Cleaning Supplies</string>
+	<string>Baby Items</string>
+	<string>Pet Care</string>
+	<string>Other</string>
+</array>
+</plist>

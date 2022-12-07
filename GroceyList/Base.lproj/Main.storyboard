@@ -351,6 +351,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="A3A-6G-4Xg"/>
                     <connections>
+                        <outlet property="actionBtn" destination="lUG-bw-nHk" id="sv7-WJ-Ddr"/>
                         <outlet property="categoryInput" destination="DT3-Mh-Otk" id="XTp-qA-vu5"/>
                         <outlet property="errorLabel" destination="tgw-qh-brB" id="cri-Bo-CjN"/>
                     </connections>

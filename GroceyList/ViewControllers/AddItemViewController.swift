@@ -13,7 +13,7 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var category: UIPickerView!
     @IBOutlet weak var errorLabel: UILabel!
     
-    var categorySelected = "--"
+    var categorySelected = ""
     var categoryDataSource:[String] = []
     var listName = ""
     
@@ -27,9 +27,17 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let categories = CRUDActions.getCategoryNames() {
-            categoryDataSource = categories
+        while true {
+            if let categories = CRUDActions.getCategoryNames() {
+                categoryDataSource = categories
+            }
+            if categoryDataSource.count < 1 {
+                CRUDActions.loadInitialData()
+            } else {
+                break
+            }
         }
+        
         categorySelected = categoryDataSource[0]
     }
 

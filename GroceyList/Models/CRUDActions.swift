@@ -9,6 +9,46 @@ import UIKit
 import CoreData
 
 class CRUDActions: NSObject {
+    static func loadInitialData() {
+        if let URL = Bundle.main.url(forResource: "Categories", withExtension: "plist") {
+            if let categoryArray = NSArray(contentsOf: URL) as? [String] {
+                for category in categoryArray {
+                    createNewCategory(categoryName: category)
+                }
+            }
+        }
+    }
+    
+    static func updateTimestamp(listName: String) {
+        //Get the managed context context from AppDelegate
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+            //Prepare a fetch request for the record to update
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
+            fetchRequest.predicate = NSPredicate(format: "listName = %@", listName)
+            
+            do{
+                //Fetch the record to update
+                let test = try managedContext.fetch(fetchRequest)
+
+                //Update the record
+                let objectToUpdate = test[0] as! NSManagedObject
+                objectToUpdate.setValue(NSDate(), forKey: "timestamp")
+                do{
+                    //Save the managed object context
+                    try managedContext.save()
+                }
+                catch let error as NSError {
+                    print("Could not update the record! \(error), \(error.userInfo)")
+                }
+            }
+            catch let error as NSError {
+                print("Could not find the record to update! \(error), \(error.userInfo)")
+            }
+        }
+    }
+    
     static func create(listName:String) {
         //Get the managed context context from AppDelegate
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -47,6 +87,7 @@ class CRUDActions: NSObject {
                 //Save the managed object context
                 print("Added new item to list")
                 try managedContext.save()
+                updateTimestamp(listName: listName)
             } catch let error as NSError {
                 print("Could not add the new item! \(error), \(error.userInfo)")
             }
@@ -207,6 +248,7 @@ class CRUDActions: NSObject {
                     do {
                         //Save the managed object context
                         try managedContext.save()
+                        updateTimestamp(listName: listName)
                     }
                     catch let error as NSError {
                         print("Could not delete the record! \(error), \(error.userInfo)")
@@ -298,6 +340,35 @@ class CRUDActions: NSObject {
             }
             catch let error as NSError {
                 print("Could not find the record to delete! \(error), \(error.userInfo)")
+            }
+        }
+    }
+    
+    static func updateCategory(oldWord:String, newWord:String) {
+        //Get the managed context context from AppDelegate
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let managedContext = appDelegate.persistentContainer.viewContext
+            
+            //Prepare a fetch request for the record to update
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
+            fetchRequest.predicate = NSPredicate(format: "categoryName = %@", oldWord)
+            
+            do{
+                //Fetch the record to update
+                let test = try managedContext.fetch(fetchRequest)
+                //Update the record
+                let objectToUpdate = test[0] as! NSManagedObject
+                objectToUpdate.setValue(newWord, forKey: "categoryName")
+                do{
+                    //Save the managed object context
+                    try managedContext.save()
+                }
+                catch let error as NSError {
+                    print("Could not update the record! \(error), \(error.userInfo)")
+                }
+            }
+            catch let error as NSError {
+                print("Could not find the record to update! \(error), \(error.userInfo)")
             }
         }
     }

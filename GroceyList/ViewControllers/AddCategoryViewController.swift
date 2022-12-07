@@ -11,9 +11,16 @@ class AddCategoryViewController: UIViewController {
 
     @IBOutlet weak var categoryInput: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var actionBtn: UIButton!
     
+    var action = ""
+    var oldCategory = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        actionBtn.setTitle(action + " Category", for: .normal)
+        if action == "Update" {
+            categoryInput.text = oldCategory
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -23,7 +30,12 @@ class AddCategoryViewController: UIViewController {
     @IBAction func addCategory(_ sender: Any) {
         if let category = categoryInput.text {
             if !category.isEmpty {
-                CRUDActions.createNewCategory(categoryName: category)
+                if action == "Update" {
+                    CRUDActions.updateCategory(oldWord: oldCategory, newWord: category)
+                } else {
+                    CRUDActions.createNewCategory(categoryName: category)
+                }
+                
                 navigationController?.popViewController(animated: true)
             } else {
                 errorLabel.text = "Categroy Name is Required"
